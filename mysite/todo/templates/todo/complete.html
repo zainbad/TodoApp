@@ -1,0 +1,64 @@
+{% extends 'todo/base.html' %}
+
+{% block style %}
+    <style>
+        #done_tasks {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#done_tasks td, #done_tasks th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#done_tasks tr:nth-child(even){background-color: #4E8397;}
+
+#done_tasks tr:hover {background-color: #ddd;}
+
+#done_tasks th ,tr{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #C34A36;
+  color: white;
+}
+
+
+
+    </style>
+{% endblock %}
+
+
+{% block content %}
+<h3>Total: {{count}}</h3>
+<table id='done_tasks'>
+<tr>
+    <th>#</th>
+    <th>Task</th>
+    <th>Todo List</th>
+    <th>Status</th>
+</tr>
+
+{% for task in tasks %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{task.name}}</td>
+        <td>{{task.todo_list.name}}</td>
+        <td>{{task.status}}</td>
+
+    </tr>
+
+{% endfor %}
+
+
+
+
+
+</table>
+
+
+
+
+{% endblock %}

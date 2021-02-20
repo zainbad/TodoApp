@@ -1,0 +1,84 @@
+{% extends 'todo/base.html' %}
+
+
+{% block content %}
+    <form method="POST" id='list_form'>
+        {% csrf_token %}
+        <div class="form-group">
+            {{form.as_p}}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+    </form>
+
+
+
+    <div>
+        <h3>All Todo Lists</h3>
+        <ul class="list-group">
+        {% for list in todo_lists %}
+           <span class="list-group-item"> 
+                <li>
+                   <a href="{% url 'list_tasks' list.id %}">{{list.name}}</a>
+                </li>
+                <button class="btn btn-danger" ><a href="{% url 'delete_list' list.id %}" style='color: white;'>Delete</a></button>
+            </span>
+
+
+        {% endfor %}
+       </ul>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+
+$('#list_form').submit(function(e){
+    e.preventDefault();
+
+    var serializeData = $(this).serialize()
+ 
+    $.ajax({
+        type: 'POST',
+        url: '{% url "add_list_ajax" %}',
+        data: serializeData,
+        
+        success: function (response) {
+
+            $("#list_form").trigger('reset');
+            var instance = JSON.parse(response['instance']);
+            var id = instance[0]['pk'];
+            var fields  = instance[0]['fields'];
+            $(".list-group").prepend(
+                `<span class="list-group-item"> 
+                <li>
+                   <a href="#">${fields['name']}</a>
+                </li>
+                <button class="btn btn-danger">Delete</button>
+            </span>`
+            
+            )
+            
+           
+            
+        },
+        error: function(response){
+            alert(response["responseJSON"].error);
+        }
+    });
+
+
+
+});
+
+
+
+
+
+
+
+</script>
+
+
+{% endblock %}

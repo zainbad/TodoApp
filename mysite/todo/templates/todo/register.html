@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register Page</title>
+
+       
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    
+        <style>
+            header{
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 120px;
+                background: #C34A36;
+                color: white;
+            }
+            #container{
+                width: 70%;
+                margin-left: 15%;
+                margin-right: 15%;
+                background: #FF8066;
+                height: auto;
+                margin-top: 50px;
+                box-shadow: 3px 5px rgba(0,0,0, 0.1);
+                padding: 100px;
+
+            }
+        </style>
+    </head>
+    <body>
+
+        <header>
+            <h1>Todo App</h1>
+        </header>
+        <div id='container'>
+            <h3>Log In</h3>
+            <form method='POST'>
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type='submit' class="btn btn-primary">Submit</button>
+            </form>
+              
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static '/js/register.js'%}"></script>
+    </body>
+</html>

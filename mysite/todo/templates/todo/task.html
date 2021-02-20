@@ -1,0 +1,41 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<button class="btn btn-outline-light"><a href="{% url 'home' %}">>>Todo Lists</a></button>
+
+
+<form method="POST" id='task_form'>
+  {% csrf_token %}
+  <div class="form-group">
+      {{form.as_p}}
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+
+</form>
+
+<h3 id="{{list.name}}">{{list.name}}</h3>
+    <ul class="list-group">
+    {% for task in tasks %}
+        <span class="list-group-item" id='task{{task.id}}'>
+          <li>
+            <a>{{task.name}}</a>
+          </li> 
+          <button class="btn btn-primary" id="done">
+            <a href="#" style='color: white;' id="{{task.id}}">Done</a>
+          </button>
+        </span>
+
+    {% endfor %}
+    </ul>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static '/js/task.js' %}">
+
+
+
+</script>
+
+{% endblock %}
+

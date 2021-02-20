@@ -1,0 +1,31 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+<h3>List: {{list.name}}</h3> 
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Task</th>
+        <th scope="col">Status</th>
+        <th scope="col">Created</th>
+      </tr>
+    </thead>
+    <tbody>
+
+     {% for task in tasks%}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{task.name}}</td>
+            <td>{{task.status}}</td>
+            <td>{{task.created}}</td>
+        </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+  <p style='display: inline;'>Are you sure?</p>
+  <button type="button" class="btn btn-primary" style='display: inline;'><a href='{% url "home" %}' style='color: white;'>Cancel</a></button>
+  <button type="button" class="btn btn-warning" style='display: inline;'><a href="{% url 'delete_list_done' list.id %}" style='color: white;'>Confirm</a></button>
+
+{% endblock %}
